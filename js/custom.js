@@ -79,3 +79,17 @@
 }(jQuery));
 
 
+
+const pages = ["#story", "#about", "#family","#family","#gallery","#events","#contact","#home"];
+    let currentPage = 0;
+
+    function scrollToNextPage() {
+      currentPage = (currentPage + 1) % pages.length;
+      const targetPage = document.querySelector(pages[currentPage]);
+      const targetScroll = targetPage.offsetTop;
+
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    }
