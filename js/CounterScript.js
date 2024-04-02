@@ -1,27 +1,62 @@
 // alert("🎁🎉🎂🎁 Advance Happy Birthday🎁🎉🎂🎁");
+const dateSettingsButton = document.getElementById("date-settings");
 
-const countDown = () => {
-    const countDate = new Date('March 3, 2024 02:53:00').getTime();
-    const now = new Date().getTime();
-    const gap = countDate - now;
+/* Date settings (UTC) */
+let utcYear = 2023,
+    utcMonth = 5,
+    utcDay = 14,
+    utcHour = 0,
+    utcMinute = 0,
+    utcSeconds = 0;
 
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
+let countUpDate = new Date(utcYear, utcMonth - 1, utcDay, utcHour, utcMinute, utcSeconds);
 
-    const textDay = Math.floor(gap / day);
-    const textHour = Math.floor((gap % day) / hour);
-    const textMinute = Math.floor((gap % hour) / minute);
-    const textSecond = Math.floor((gap % minute) / second);
-
-    document.querySelector(".day").innerText = textDay;
-    document.querySelector(".hour").innerText = textHour;
-    document.querySelector(".minute").innerText = textMinute;
-    document.querySelector(".second").innerText = textSecond;
-
+/**
+ * Converts a single digit number to a two digit string
+ * @param {number} numberToConvert 
+ */
+const numberToTwoDigitsString = (numberToConvert = null) => {
+    if (numberToConvert = null) {
+        return;
+    }
+    if (numberToConvert <= 9 && numberToConvert >= 0) return "0" + numberToConvert;
+    return "" + numberToConvert;
 };
 
-countDown();
+/**
+ * Updates the date information on the page
+ */
+const updateDateInformation = () => {
+    let dateNow = new Date();
+    let timeNow = dateNow.getTime();
+    let diffBetweenDates = timeNow - countUpDate.getTime();
 
-setInterval(countDown, 1000);
+    let dateDefinitions = [];
+    dateDefinitions["years"] = Math.floor(diffBetweenDates / (1000 * 60 * 60 * 24 * 365));
+    dateDefinitions["days"] = Math.floor(diffBetweenDates % (1000 * 60 * 60 * 24 * 365) / (1000 * 60 * 60 * 24));
+    dateDefinitions["hours"] = Math.floor(diffBetweenDates % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+    dateDefinitions["minutes"] = Math.floor(diffBetweenDates % (1000 * 60 * 60) / (1000 * 60));
+    dateDefinitions["seconds"] = Math.floor(diffBetweenDates % (1000 * 60) / (1000));
+
+    for (key in dateDefinitions) {
+        const element = document.getElementById(key);
+        element.querySelector("h1").innerText = dateDefinitions[key];
+        element.querySelector("p").innerText = (dateDefinitions[key] == 1 ? key.replace(/.$/, "") : key);
+    }
+};
+
+/**
+ * Starts updateDateInformation periodically
+ */
+const count = setInterval(() => {
+    updateDateInformation();
+}, 1000);
+
+updateDateInformation();
+
+
+    classesToToggle.forEach(classToToggle => {
+        element.classList.toggle(classToToggle);
+    });
+};
+
