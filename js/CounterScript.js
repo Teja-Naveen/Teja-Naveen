@@ -22,7 +22,7 @@ const darkmodeButton = document.body.getElementsByTagName("button")[0];
 const dateSettingsButton = document.getElementById("date-settings");
 
 /* Date settings (UTC) */
-let utcYear = 2023,
+let utcYear = 2024,
     utcMonth = 5,
     utcDay = 14,
     utcHour = 0,
